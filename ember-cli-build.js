@@ -5,6 +5,10 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
+    'ember-font-awesome': {
+        useScss: true,
+        fontsOutput: "/assets/fonts"
+    }    
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -19,6 +23,17 @@ module.exports = function(defaults) {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
+  // app.import(`${app.bowerDirectory}/font-awesome/fonts/fontawesome-webfont.woff`);
+  app.import({
+    "development": `${app.bowerDirectory}/tether/dist/css/tether.css`,
+    "production": `${app.bowerDirectory}/tether/dist/css/tether.min.css`
+  });
+  app.import({
+    "development": `${app.bowerDirectory}/tether/dist/js/tether.js`,
+    "production": `${app.bowerDirectory}/tether/dist/js/tether.min.js`
+  });
+  app.import(`${app.bowerDirectory}/bootstrap/dist/css/bootstrap.css`);
+  app.import(`${app.bowerDirectory}/bootstrap/dist/js/bootstrap.js`);
 
   return app.toTree();
 };
