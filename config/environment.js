@@ -20,6 +20,46 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      dataTables : [{
+        "main-table": [
+          {
+            name: "Name",
+            type: "String",
+            sortable: false,
+            filterEnabled: false
+          },
+          {
+            name: "Position",
+            type: "String",
+            sortable: false,
+            filterEnabled: false
+          },
+          {
+            name: "Office",
+            type: "String",
+            sortable: false,
+            filterEnabled: false
+          },
+          {
+            name: "Age",
+            type: "Integer",
+            sortable: false,
+            filterEnabled: false
+          },
+          {
+            name: "Start Date",
+            type: "String",
+            sortable: false,
+            filterEnabled: false
+          },
+            {
+              name: "Salary",
+              type: "String",
+              sortable: false,
+              filterEnabled: false
+            },
+        ]
+      }]
     }
   };
 

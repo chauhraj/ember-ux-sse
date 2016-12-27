@@ -7,7 +7,7 @@ module.exports = function(defaults) {
     // Add options here
     'ember-font-awesome': {
         useScss: true,
-        fontsOutput: "/assets/fonts"
+        // fontsOutput: "/assets/fonts"
     }    
   });
 
