@@ -4,14 +4,6 @@ export default Ember.Route.extend({
     model() {
         return [
             {
-                "name": "Name",
-                "position": "Position",
-                "office": "Office",
-                "age": "Age",
-                "startDate": "Start date",
-                "salary": "Salary"
-            },
-            {
                 "name": "Tiger Nixon",
                 "position": "System Architect",
                 "office": "Edinburgh",
