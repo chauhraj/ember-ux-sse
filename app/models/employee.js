@@ -5,6 +5,6 @@ export default DS.Model.extend({
     position: DS.attr("string"),
     office: DS.attr("string"),
     age: DS.attr("number"),
-    startDate: DS.attr("date"),
-    salary: DS.attr("number")
+    startDate: DS.attr("string"),
+    salary: DS.attr("string")
 });

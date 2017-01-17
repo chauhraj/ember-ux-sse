@@ -1,1 +1,5 @@
 @import "font-awesome";
+
+.dropdown-toggle::after {
+    display:none
+}

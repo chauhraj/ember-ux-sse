@@ -1,21 +1,49 @@
 <div class="container-fluid">
-<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table class="table table-striped table-bordered">
         <thead>
             <tr>
-                {{#each columns as |column|}}
-                <th>{{column.displayName}} {{#if column.isSortable}} {{fa-icon "sort" }} {{/if}} {{#if column.isFilterable}}{{fa-icon "filter" click=(action "myClickHandler")}} {{/if}}</th>
+                <th class="select-rows-header">
+                    {{input type="checkbox"}}
+                </th>
+                {{#each columns as |column columnName|}}
+                    <th class="text-center" {{action "sortByColumn" column.columnName}}>{{column.displayName}} 
+                        {{#if (and column.isSortable (eq column.columnName sortingKey))}}
+                                <span>
+                                    {{#if ascending}} 
+                                        {{fa-icon "sort-asc"}} 
+                                    {{else}}
+                                        {{fa-icon "sort-desc"}} 
+                                    {{/if}}
+                                </span>
+                        {{/if}}
+                        {{#if column.isFilterable}}
+                            <span class="dropdown">
+                                <a class={{concat "dropdown-toggle data-" column.columnName}} data-toggle="dropdown">
+                                    {{fa-icon "bars" click=(action 'enableMenu' column.columnName bubbles=false)}}
+                                </a>    
+                                <div class="dropdown-menu">
+                                    {{input class="dropdown-item"
+                                            value=filterValue
+                                            key-press=(action "filterData" value column.columnName) 
+                                            placeholder=(concat "Search by " column.displayName)}}
+                                 </div>
+                            </span>
+                        {{/if}}
+                    </th>
                 {{/each}}
             </tr>
         </thead>
         <tbody>
-            {{#each data as |row|}}
-                <tr>
-                    {{#each columns as |column|}}
-                    {{debugger}}
-                    <td>{{get row column.columnName}}</td>
-                    {{/each}}
-                </tr>
-            {{/each}}
+                {{#each filteredResults as |row|}}
+                    <tr>
+                        <th class="select-rows-header">
+                            {{input type="checkbox"}}
+                        </th>
+                        {{#each columns as |column columnName|}}
+                            <td>{{get row column.columnName}}</td>
+                        {{/each}}
+                    </tr>
+                {{/each}}
         </tbody>
     </table>
     </div>
