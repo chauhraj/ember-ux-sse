@@ -1,12 +1,25 @@
 <div class="container-fluid">
-<table class="table table-striped table-bordered">
+    <div class="container-fluid">
+        <div class="btn-toolbar mb-1" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group" role="group">
+                <a class="btn btn-danger">{{fa-icon "trash-o"}}</a>
+                <a class="btn btn-default">{{fa-icon "save"}}</a>
+                <a class="btn btn-success">{{fa-icon "refresh"}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+    <table class="table table-striped table-inverse">
         <thead>
             <tr>
+                <th scope="row">
+                    #
+                </th>    
                 <th class="select-rows-header">
                     {{input type="checkbox"}}
                 </th>
                 {{#each columns as |column columnName|}}
-                    <th class="text-center" {{action "sortByColumn" column.columnName}}>{{column.displayName}} 
+                    <th><span {{action "sortByColumn" column.columnName}}>{{column.displayName}}</span> 
                         {{#if (and column.isSortable (eq column.columnName sortingKey))}}
                                 <span>
                                     {{#if ascending}} 
@@ -26,7 +39,7 @@
                                             value=filterValue
                                             key-press=(action "filterData" value column.columnName) 
                                             placeholder=(concat "Search by " column.displayName)}}
-                                 </div>
+                                    </div>
                             </span>
                         {{/if}}
                     </th>
@@ -34,11 +47,12 @@
             </tr>
         </thead>
         <tbody>
-                {{#each filteredResults as |row|}}
+                {{#each filteredResults as |row index|}}
                     <tr>
-                        <th class="select-rows-header">
+                        <td>{{add (mult (add currentPage -1) pageSize) 1 index}}</td>
+                        <td class="select-rows-header">
                             {{input type="checkbox"}}
-                        </th>
+                        </td>
                         {{#each columns as |column columnName|}}
                             <td>{{get row column.columnName}}</td>
                         {{/each}}
@@ -47,4 +61,29 @@
         </tbody>
     </table>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-6">
+            <ul class="pagination justify-content-end">
+                <li class="page-item {{if isFirstPage "disabled" }}">
+                    <a class="page-link" href="#" tabindex="-1" {{action 'gotoPage' (add currentPage -1)}}>Previous</a>
+                </li>
+                {{log "Display Size:" pageDisplaySize}}
+                {{#each pageDisplaySize as |pageItem index|}}
+                    {{#if (eq currentPage (add pagesToDisplayFrom index)) }}
+                        <li class="page-item active">
+                            <a class="page-link" href="#">{{currentPage}}<span class="sr-only">(current)</span></a>
+                        </li>
+                    {{else}}
+                        <li class="page-item">
+                            <a class="page-link" href="#"  {{action 'gotoPage' (add index pagesToDisplayFrom)}}>{{add index pagesToDisplayFrom}}</a>
+                        </li>
+                    {{/if}}
+                {{/each}}
+                <li class="page-item {{if isLastPage "disabled" }}">
+                    <a class="page-link" href="#" {{action 'gotoPage' (add currentPage 1)}}>Next</a>
+                </li>
+            </ul>
+        </div>        
+    </div>
+</div>
 {{yield}}
